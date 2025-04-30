@@ -116,7 +116,13 @@ def minimax(board, depth, alpha, beta, is_max):
 def find_best_move_ultimate(board, next_big_r, next_big_c):
     best_score = -math.inf
     best_move = None
-    moves = board.get_available_moves(next_big_r, next_big_c)
+    if next_big_r == -1 and next_big_c == -1:
+        allowed_boards = [(r, c) for r in range(3) for c in range(3) if board.boards[r][c].winner is None]
+        moves = []
+        for br, bc in allowed_boards:
+            moves.extend(board.get_available_moves(br, bc))
+    else:       
+        moves = board.get_available_moves(next_big_r, next_big_c)
     for move in moves:
         new_board = copy.deepcopy(board)
         new_board.last_small = (move[2], move[3])
