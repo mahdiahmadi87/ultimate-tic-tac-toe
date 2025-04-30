@@ -121,7 +121,7 @@ def find_best_move_ultimate(board, next_big_r, next_big_c):
         new_board = copy.deepcopy(board)
         new_board.last_small = (move[2], move[3])
         new_board.make_move(*move, AI_PLAYER)
-        score = minimax(new_board, 2, -math.inf, math.inf, False)
+        score = minimax(new_board, 4, -math.inf, math.inf, False)
         if score > best_score:
             best_score = score
             best_move = move
@@ -135,12 +135,12 @@ def parse_input():
 
 def determine_players(grid):
     flat = [cell for row in grid for cell in row]
-    x_count = flat.count('x')
-    y_count = flat.count('y')
+    x_count = flat.count('X')
+    y_count = flat.count('O')
     if x_count == y_count:
-        return 'x', 'y'
+        return 'X', 'O'
     else:
-        return 'y', 'x'
+        return 'O', 'X'
 
 def build_ultimate_board(grid):
     ub = UltimateBoard()
@@ -168,4 +168,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-        
