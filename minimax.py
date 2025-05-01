@@ -121,17 +121,23 @@ def find_best_move_ultimate(board, next_big_r, next_big_c):
         moves = []
         for br, bc in allowed_boards:
             moves.extend(board.get_available_moves(br, bc))
-    else:       
+        
+        # moves = moves[:15]
+        depth = 2
+    else:
         moves = board.get_available_moves(next_big_r, next_big_c)
+        depth = 4  
+
     for move in moves:
         new_board = copy.deepcopy(board)
         new_board.last_small = (move[2], move[3])
         new_board.make_move(*move, AI_PLAYER)
-        score = minimax(new_board, 4, -math.inf, math.inf, False)
+        score = minimax(new_board, depth, -math.inf, math.inf, False)
         if score > best_score:
             best_score = score
             best_move = move
     return best_move
+
 
 def parse_input():
     lines = [input().strip() for _ in range(10)]
